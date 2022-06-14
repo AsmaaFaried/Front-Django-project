@@ -1,0 +1,111 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+
+}
+#root{
+  height: 100vh;
+}
+
+.job-content{
+  background-image: url(../public/images/jobpost.png);
+  background-repeat: no-repeat;
+  background-position: right;
+  background-position: 794px 120px;
+  background-size: 49% 85%;
+
+}
+.createjobs{
+  background-color: #b4e3e3;
+
+}
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+.form-card{
+  margin-left: 10%;
+  padding: 20px;
+  border-radius: 10px;
+ 
+}
+.login,.signup{
+  background-color: #ccd8ff;
+  position: absolute;
+  top: 7%;
+
+}
+
+.signup-content{
+  height: 100vh;
+  background-image: url(../public/images/signup.png);
+  background-repeat: no-repeat;
+  background-position: right;
+  background-position: 869px 189px;
+  background-size: 40% 68%;
+
+}
+.login{
+  position: absolute;
+  top: 23%;
+}
+.login-content{
+  height: 100vh;
+  
+  background-image: url(../public/images/login2.png);
+  background-repeat: no-repeat;
+  background-position: right;
+  background-position: 966px 178px;
+  background-size: 31% 477px;
+
+
+}
+
+.home{
+  height: 100vh;
+  display: flex;
+}
+
+.st{
+  width: 50%;
+  
+}
+.snd{
+  width: 50%;
+  background-image: url(../public/images/home.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-position: 139px;
+  background-size: 76%;
+
+}
+
+.content-home{
+  position: relative;
+  top: 39%;
+  padding: 20px;
+}
+
+
+.detail-bg{
+  width: 50%;
+  background-image: url(../public/images/jobdetails.png);
+  background-repeat: no-repeat;
+  background-position: -33px;
+  background-size: 100%;
+  background-size: 1000px !important;
+}
+.details{
+  width:50%;
+}
+.content-detail{
+  
+  position: relative;
+  top: 10%;
+  padding: 20px;
+}
