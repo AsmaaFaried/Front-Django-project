@@ -1,90 +1,25 @@
 import { useState } from "react";
 
 function ShowjobsComponent(){
-    // const [jobs,setJobs]=useState([])
-    const jobs=[
+    const [jobsarr ,setJobsArr] = useState([]);
 
-        {
-        'name':'front-end task',
-        'description':'edit in home page',
-        'status':'open',
-        'creation_time':'2021-01-11',
-        'modification_time':'2021-01-11',
-        'tags':['php','html','js']
-        },
-        {
-            'name':'Back-end task',
-            'description':'edit in home page',
-            'status':'open',
-            'creation_time':'2021-01-11',
-            'modification_time':'2021-01-11',
-            'tags':['php','html','js']
-        },
-        {
-            'name':'front-end task',
-            'description':'edit in home page',
-            'status':'open',
-            'creation_time':'2021-01-11',
-            'modification_time':'2021-01-11',
-            'tags':['php','html','js']
-        },
-        {
-            'name':'front-end task',
-            'description':'edit in home page',
-            'status':'open',
-            'creation_time':'2021-01-11',
-            'modification_time':'2021-01-11',
-            'tags':['php','html','js']
-            },
-            {
-                'name':'front-end task',
-                'description':'edit in home page',
-                'status':'open',
-                'creation_time':'2021-01-11',
-                'modification_time':'2021-01-11',
-                'tags':['php','html','js']
-                },
-        {
-            'name':'Back-end task',
-            'description':'edit in home page',
-            'status':'open',
-            'creation_time':'2021-01-11',
-            'modification_time':'2021-01-11',
-            'tags':['php','html','js']
-        }
-
-    ]
-
-    // const job1={
-    //             'name':'front-end task',
-    //             'description':'edit in home page',
-    //             'status':'open',
-    //             'creation_time':'2021-01-11',
-    //             'modification_time':'2021-01-11',
-    //             'tags':['php','html','js']
-    //         }
-    // const job2={
-    //     'name':'front-end task',
-    //     'description':'edit in home page',
-    //     'status':'open',
-    //     'creation_time':'2021-01-11',
-    //     'modification_time':'2021-01-11',
-    //     'tags':['php','html','js']
-    // }
-    // let getAll=()=>{
+    let fetchJobs = async () =>{
+        const response = await fetch("http://127.0.0.1:8000/api/jobs/", { headers: {
+            Authorization: "Token 5fb215c82451632ae7f0941bf4f1c69ac5dc9890"
+        }})
+        const data = await response.json()
+        const jobs=data.jobs
+        setJobsArr(data.jobs)
+    }
     
-    //     let res=setJobs(job1)
-    //     return res
-
-    // }
-    let job=jobs.map((job,index)=>{
-        let tags=job.tags
-        let alltag=tags.map((tag,index)=>{
+    let job=jobsarr.map((job,index)=>{
+        const tags=job.Tags
+        const tag = tags.map((tag,index)=>{
             return (
-                <ul>
-                    <li>{tag}</li>
-                </ul>
-            )
+                        <ul>
+                            <li>{tag.name}</li>
+                        </ul>
+                    )
         })
         return(
             
@@ -93,9 +28,8 @@ function ShowjobsComponent(){
                 <div className="card-body">
                     Description :  <p className="card-text">{job.description}</p>
                     <h5 className="card-title">Languages</h5>
-                    {alltag}
+                    {tag}
                     <a href="#" className="btn btn-outline-info">Details</a>
-
                 </div>
             </div>     
             ) 
@@ -103,13 +37,11 @@ function ShowjobsComponent(){
     )
     return(
             <div className="container ">
+                <button onClick={fetchJobs}>Fetch</button>
                 <h2 className="pt-5">ALL JOBS</h2>
                 <div className="row">
                     {job}
-                </div>
-                {/* {getAll()} */}
-                    
-                
+                </div>                    
             </div>
     )
 

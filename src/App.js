@@ -6,11 +6,13 @@ import LoginComponent from './Components/LoginComponent';
 import HomeComponent from './Components/HomeComponent';
 import JobdetailsComponent from './Components/JobdetailsComponent';
 
+
 function App() {
   
   return (
     <div className="App">
       {/* <CreatejobComponent/> */}
+      
       
       {/* <ShowjobsComponent/> */}
       <SignupComponent/>
