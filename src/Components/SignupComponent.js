@@ -19,7 +19,7 @@ function SignupComponent(){
         const getuserType= event.target.value
         setshowElements(getuserType)
     }
-
+    
     return(
         <div className="signup-content">
             <div className='w-25 form-card signup'>
@@ -30,10 +30,11 @@ function SignupComponent(){
                     <label for="exampleInputEmail1" className="form-label">Email address</label>
                     <input type="email" className="form-control" id="exampleInputEmail1" placeholder="Enter your email"/>
                 </div>
+               
                 <div className="mb-3">
                     <label for="creationTimeField" className="form-label md-form md-outline input-with-post-icon datepicker">Date of Birth</label><br/>
                     <div className="mb-3 input-group">
-                        <input className="form-control py-2 border-right-0 border" id="creationTimeField" type="date"/>
+                        <input type="date" className="form-control py-2 border-right-0 border" id="creationTimeField" />
                         <div className="input-group-text bg-transparent bg-white"> 
                         <BsCalendarPlus/>
                         </div>

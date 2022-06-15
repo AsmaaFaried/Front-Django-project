@@ -40,7 +40,7 @@ function CreatejobComponent(){
                 <div className="mb-3">
                     <label for="creationTimeField" className="form-label md-form md-outline input-with-post-icon datepicker">Creation Time</label><br/>
                     <div className="mb-3 input-group">
-                        <input className="form-control py-2 border-right-0 border" id="creationTimeField" type="date"/>
+                        <input  type="date" min={new Date()} className="form-control py-2 border-right-0 border" id="creationTimeField"/>
                         <div className="input-group-text bg-transparent"> 
                         <BsCalendarPlus/>
                         </div>
@@ -52,7 +52,7 @@ function CreatejobComponent(){
                 <div className="mb-3">
                     <label for="modifyTimeField" className="form-label md-form md-outline input-with-post-icon datepicker">Modification Time</label><br/>
                     <div className="mb-3 input-group">
-                        <input className="form-control py-2 border-right-0 border" id="modifyTimeField" type="date"/>
+                        <input type="date"  min={new Date()} className="form-control py-2 border-right-0 border" id="modifyTimeField" />
                         <div className="input-group-text bg-transparent"> 
                         <BsCalendarPlus/>
                         </div>
