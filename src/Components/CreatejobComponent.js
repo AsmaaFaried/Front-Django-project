@@ -30,7 +30,7 @@ function CreatejobComponent(){
 
                 <div className="mb-3">
                     <select className="form-select" aria-label="Default select example">
-                        <option selected>Select job status</option>
+                        <option selected>----Select job status----</option>
                         <option value="open">Open</option>
                         <option value="Inprogress">Inprogress</option>
                         <option value="finished">Finished</option>
