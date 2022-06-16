@@ -52,14 +52,7 @@ function SignupComponent(){
                     <label for="exampleInputPassword1" className="form-label">Confirm Password</label>
                     <input type="password" className="form-control" id="exampleInputPassword1" placeholder="Confirm password"/>
                 </div>
-                <div className="mb-3">
-                    <select className="form-select" aria-label="Default select example">
-                        <option value="">----Select gender----</option>
-                        <option value="female">Female</option>
-                        <option value="male">Male</option>
-                       
-                    </select>
-                </div>
+              
                 
                 <div className="mb-3">
                     <select className="form-select" aria-label="Default select example" onChange={(e)=>{handleshowhide(e)}}>
@@ -70,6 +63,14 @@ function SignupComponent(){
                 </div>
                {showhide === 'developer' &&(
                         <div>
+                             <div className="mb-3">
+                                <select className="form-select" aria-label="Default select example">
+                                    <option value="">----Select gender----</option>
+                                    <option value="female">Female</option>
+                                    <option value="male">Male</option>
+                                
+                                </select>
+                            </div>
                             <div className="mb-3">
                                 <label for="tagslist" className="form-label">Tags</label>
                                 <DropdownMultiselect options={optionsArray} name="tags" id="tagslist" className="form-control py-2 border-right-0 border" />
@@ -78,7 +79,9 @@ function SignupComponent(){
                                 <label for="inputGroupFile01" className="form-label">Upload Your CV</label>
                                 <input type="file" className="form-control" id="inputGroupFile01"/>
                             </div>
+                           
                         </div>
+                        
                     )
                }
                {
