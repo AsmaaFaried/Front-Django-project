@@ -1,80 +1,103 @@
+import { useState, useEffect } from "react";
+import Multiselect from 'multiselect-react-dropdown';
 
-import DropdownMultiselect from "react-multiselect-dropdown-bootstrap";
-import {BsCalendarPlus} from "react-icons/bs"
+function CreatejobComponent() {
+    const [name, setTitle] = useState("");
+    const [description, setDescription] = useState("");
+    const [Tags, setTag] = useState([]);
+    const [selectedTags, setSelectedTags]= useState([])
+    useEffect(() => {
+        fetchTags()
+    }, [])
+    let onSelect = (selectedList, selectedItem) => {
+        setSelectedTags(previous => [...previous, selectedItem])
+    }
+    let onRemove = (selectedList, removedItem) => {
+        setSelectedTags(previous => {
+            const old = [...previous];
+            old.splice(removedItem);
+            return old;
+        })
+    }
 
-function CreatejobComponent(){
-    const optionsArray = [
-        { key: "php", label: "PHP" },
-        { key: "html", label: "HTML" },
-        { key: "css", label: "CSS" },
-        { key: "react", label: "REACT" },
-        { key: "django", label: "DJANGO" },
-        { key: "js", label: "js" },
-      ];
-    return(
+    let fetchTags = async () => {
+        const response = await fetch("http://127.0.0.1:8000/api/tags/", {
+            headers: {
+                Authorization: "Token 7bc67ec97ef1d68fccd48efb84addf7199f33e0d"
+            }
+        })
+        const data = await response.json()
+        let keys = []
+        data.tags.forEach((tag) => {
+            keys.push({ key: `${tag.id}`, label: tag.name, value: tag.id })
+        })
+        setTag(keys)
+    }
+
+    let handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            let res = await fetch("http://127.0.0.1:8000/api/jobs/", {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: "Token 7bc67ec97ef1d68fccd48efb84addf7199f33e0d"
+                },
+                body: JSON.stringify({
+                    name: name,
+                    description: description,
+                    Tags: selectedTags.map(t=>t.value),
+                }),
+            });
+            let resJson = await res.json();
+            if (res.status === 201) {
+                setTitle("");
+                setDescription("");
+                setTag([]);
+            }
+        } catch (err) {
+            console.log(err);
+        }
+    };
+
+    return (
         <div className="job-content">
-            
+
             <div className='w-25 form-card createjobs'>
-            <h2 >Job</h2>
-            <br/>
-            <form>
-                <div className="mb-3">
-                    <label for="nameField" className="form-label">Title</label>
-                    <input type="text" id="nameField" className="form-control" placeholder="Enter job title"/>
-                </div>
-            
-                <div className="mb-3">
-                    <label for="exampleFormControlTextarea1" className="form-label">Description</label>
-                    <textarea className="form-control"  id="exampleFormControlTextarea1" placeholder="Write more details about this job" rows="5"></textarea>
-                </div>
-
-                <div className="mb-3">
-                    <select className="form-select" aria-label="Default select example">
-                        <option selected>----Select job status----</option>
-                        <option value="open">Open</option>
-                        <option value="Inprogress">Inprogress</option>
-                        <option value="finished">Finished</option>
-                    </select>
-                </div>
-
-                <div className="mb-3">
-                    <label for="creationTimeField" className="form-label md-form md-outline input-with-post-icon datepicker">Creation Time</label><br/>
-                    <div className="mb-3 input-group">
-                        <input  type="date" min={new Date()} className="form-control py-2 border-right-0 border" id="creationTimeField"/>
-                        <div className="input-group-text bg-transparent"> 
-                        <BsCalendarPlus/>
-                        </div>
-                        <span className="input-group-append ml-n1"></span>
+                <h2 >Job</h2>
+                <br />
+                <form onSubmit={handleSubmit} >
+                    <div className="mb-3">
+                        <label htmlFor="nameField" className="form-label">Title</label>
+                        <input type="text" id="nameField" name="name" value={name} onChange={(e) => setTitle(e.target.value)} className="form-control" placeholder="Enter job title" />
                     </div>
-                </div>
 
-
-                <div className="mb-3">
-                    <label for="modifyTimeField" className="form-label md-form md-outline input-with-post-icon datepicker">Modification Time</label><br/>
-                    <div className="mb-3 input-group">
-                        <input type="date"  min={new Date()} className="form-control py-2 border-right-0 border" id="modifyTimeField" />
-                        <div className="input-group-text bg-transparent"> 
-                        <BsCalendarPlus/>
-                        </div>
-                        <span className="input-group-append ml-n1"></span>
+                    <div className="mb-3">
+                        <label htmlFor="exampleFormControlTextarea1" className="form-label">Description</label>
+                        <textarea className="form-control" name="description" value={description} onChange={(e) => setDescription(e.target.value)} id="exampleFormControlTextarea1" placeholder="Write more details about this job" rows="5"></textarea>
                     </div>
-                </div>
-         
-                <div className="mb-3">
-                    <label for="tagslist" className="form-label">Tags</label>
-                    <DropdownMultiselect options={optionsArray} name="tags" id="tagslist" className="form-control py-2 border-right-0 border" />
-                </div>
-  
-                <button type="submit" className="btn btn-primary">
-                    Post Job
-                </button>
-            </form>
+
+                    <div className="mb-3">
+                        <label htmlFor="tagslist" className="form-label">Tags</label>
+                        <Multiselect
+                            selectedValues={selectedTags}
+                            options={Tags}
+                            onSelect={onSelect}
+                            onRemove={onRemove}
+                            displayValue="label"
+                        />
+                    </div>
+
+                    <button type="submit" className="btn btn-primary">
+                        Post Job
+                    </button>
+                </form>
             </div>
             <div className="w-75">
                 {/* <img src="../public/images/postjob.jpeg)" alt="image"/> */}
             </div>
         </div>
-        
+
     )
 }
 

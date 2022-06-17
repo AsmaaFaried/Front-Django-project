@@ -1,3 +1,4 @@
+import { NavLink } from 'react-router-dom'
 function HomeComponent(){
 
     return(
@@ -12,8 +13,20 @@ function HomeComponent(){
 For a company like Paragraph to run efficiently, we require skills in the following areas: awards, commercial, design, editorial, events, management, marketing and production. 
                     </p>
                     <div>
-                        <button className="btn btn-outline-info m-5 btn-lg">Login</button>
-                        <button className="btn btn-outline-success btn-lg">Signup</button>
+                        <NavLink
+                            type="button"
+                            to={`/login`}
+                            className="btn btn-outline-info m-5 btn-lg"
+                        >
+                            Login
+                        </NavLink>
+                        <NavLink
+                            type="button"
+                            to={`/signup`}
+                            className="btn btn-outline-success btn-lg"
+                        >
+                            Signup
+                        </NavLink>
                     </div>
                 </div>
             </div>
