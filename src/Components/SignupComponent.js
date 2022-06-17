@@ -163,6 +163,14 @@ function SignupComponent() {
                     </div>
                     {showhide === 'd' && (
                         <div>
+                             <div className="mb-3">
+                                <select className="form-select" aria-label="Default select example">
+                                    <option value="">----Select gender----</option>
+                                    <option value="female">Female</option>
+                                    <option value="male">Male</option>
+                                
+                                </select>
+                            </div>
                             <div className="mb-3">
                                 <select className="form-select" value={gender} onChange={(e) =>setGender(e.target.value)} aria-label="Default select example">
                                     <option value="">----Select gender----</option>
@@ -195,6 +203,7 @@ function SignupComponent() {
                             onClick={handleSignUpUser}
                             className="btn btn-outline-primary btn-lg" >Register</button>
                         </div>
+                        
                     )
                     }
                     {

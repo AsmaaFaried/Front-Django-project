@@ -90,7 +90,20 @@ code {
   top: 39%;
   padding: 20px;
 }
+.content-profile{
+  position: relative;
+  top: 20%;
+  padding: 20px;
+}
+.snd-profile{
+  width: 50%;
+  background-image: url(../public/images/profile.jpg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-position: 139px;
+  background-size: 76%;
 
+}
 
 .detail-bg{
   width: 50%;
