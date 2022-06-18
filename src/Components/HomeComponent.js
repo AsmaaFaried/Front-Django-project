@@ -1,6 +1,9 @@
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 function HomeComponent(){
-
+    let navigate = useNavigate()
+    if(localStorage.getItem("token")){
+        navigate('../profile/', { replace: true })
+    }
     return(
         <div className="home">
             <div className="st">

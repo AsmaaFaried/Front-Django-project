@@ -5,7 +5,9 @@ function LoginComponent(){
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     let navigate = useNavigate()
-
+    if(localStorage.getItem("token")){
+        navigate('../profile/', { replace: true })
+    }
     let handleSubmit = async (e) => {
         e.preventDefault();
         try {
@@ -20,12 +22,12 @@ function LoginComponent(){
                 }),
             });
             let resJson = await res.json();
-            console.log(resJson)
             if (res.status === 200) {
-                setUsername("");
-                setPassword("");
+                localStorage.setItem("token",resJson.token)
+                navigate('../profile/', { replace: true })
+            }else{
+                alert("Username or Password is invalid")
             }
-            navigate('../home/', { replace: true })
         } catch (err) {
             console.log(err);
         }

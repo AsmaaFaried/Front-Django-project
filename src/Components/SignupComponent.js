@@ -17,7 +17,10 @@ function SignupComponent() {
     const [Tags, setTag] = useState([]);
     const [selectedTags, setSelectedTags] = useState([])
     let navigate = useNavigate()
-
+    let token = localStorage.getItem("token")
+    if(localStorage.getItem("token")){
+        navigate('../profile/', { replace: true })
+    }
     useEffect(() => {
         fetchTags()
     }, [])
@@ -41,7 +44,7 @@ function SignupComponent() {
     let fetchTags = async () => {
         const response = await fetch("http://127.0.0.1:8000/api/tags/", {
             headers: {
-                Authorization: "Token 7bc67ec97ef1d68fccd48efb84addf7199f33e0d"
+                Authorization:`Token ${token}`
             }
         })
         const data = await response.json()
@@ -71,17 +74,10 @@ function SignupComponent() {
                 }),
             });
             let resJson = await res.json();
-            console.log(resJson)
             if (res.status === 201) {
-                setUsername("");
-                setPassword("");
-                setEmail("");
-                setUsertype("");
-                setConfirmPass("");
-                setGender("");
-                setSelectedTags([]);
-                setDate("")
                 navigate('../login/', { replace: true })
+            }else{
+                alert("You failed to signup")
             }
         } catch (err) {
             console.log(err);
@@ -108,15 +104,9 @@ function SignupComponent() {
             let resJson = await res.json();
             console.log(resJson)
             if (res.status === 201) {
-                setUsername("");
-                setPassword("");
-                setConfirmPass("");
-                setDate("");
-                setEmail("");
-                setUsertype("");
-                setAddress("");
-                setHistory("");
                 navigate('../login/', { replace: true })
+            }else{
+                alert("You failed to signup")
             }
         } catch (err) {
             console.log(err);
@@ -163,14 +153,6 @@ function SignupComponent() {
                     </div>
                     {showhide === 'd' && (
                         <div>
-                             <div className="mb-3">
-                                <select className="form-select" aria-label="Default select example">
-                                    <option value="">----Select gender----</option>
-                                    <option value="female">Female</option>
-                                    <option value="male">Male</option>
-                                
-                                </select>
-                            </div>
                             <div className="mb-3">
                                 <select className="form-select" value={gender} onChange={(e) =>setGender(e.target.value)} aria-label="Default select example">
                                     <option value="">----Select gender----</option>
@@ -192,13 +174,6 @@ function SignupComponent() {
                                 <label for="inputGroupFile01" value={cv} onChange={(e) => setCv(e.target.value)} className="form-label">Upload Your CV</label>
                                 <input type="file" className="form-control" id="inputGroupFile01" />
                             </div>
-                            {/* <NavLink
-                            type="submit"
-                            to={`/login`}
-                            onSubmit={handleSignUpUser}
-                            className="btn btn-outline-primary btn-lg">
-                            Register
-                        </NavLink> */}
                         <button
                             onClick={handleSignUpUser}
                             className="btn btn-outline-primary btn-lg" >Register</button>
@@ -218,7 +193,6 @@ function SignupComponent() {
                                     <textarea className="form-control" value={history} onChange={(e) => setHistory(e.target.value)}  id="exampleFormControlTextarea1" rows="3" cols='3'></textarea>
                                 </div>
                             <button
-                            // to={`/login`}
                             onClick={handleSignUpCompany}
                             className="btn btn-outline-primary btn-lg">
                             Register

@@ -6,6 +6,7 @@ function JobdetailsComponent() {
     const [job, setJob] = useState({});
     const [tags, setTags] = useState([]);
     let {id} = useParams();
+    let token = localStorage.getItem("token")
 
     useEffect(() => {
         fetchJob()
@@ -14,7 +15,7 @@ function JobdetailsComponent() {
     let fetchJob = async () => {
         const response = await fetch(`http://127.0.0.1:8000/api/jobs/${id}`, {
             headers: {
-                Authorization: "Token 7bc67ec97ef1d68fccd48efb84addf7199f33e0d"
+                Authorization:`Token ${token}`
             }
         })
         const data = await response.json()

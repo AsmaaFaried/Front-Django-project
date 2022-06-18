@@ -9,12 +9,14 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import "primereact/resources/themes/vela-purple/theme.css"
 import ProfileComponent from './Components/ProfileComponent';
+import Navbar from './Components/Navbar';
 
 function App() {
   
   return (
     <div className="App">
         <BrowserRouter>
+        <Navbar/>
         <Routes>
           <Route path="/home" element={<HomeComponent />} /> 
           <Route path="/" element={<HomeComponent />} /> 
@@ -23,7 +25,7 @@ function App() {
           <Route path="/jobs" element={<ShowjobsComponent />} />
           <Route path="/create" element={<CreatejobComponent />} />
           <Route path="/jobs/:id" element={<JobdetailsComponent />} />
-          <Route path="/profile" element={<ProfileComponent />} />
+          <Route path="/profile/" element={<ProfileComponent />} />
         </Routes>
       </BrowserRouter>
     </div>

@@ -6,6 +6,7 @@ function CreatejobComponent() {
     const [description, setDescription] = useState("");
     const [Tags, setTag] = useState([]);
     const [selectedTags, setSelectedTags]= useState([])
+    let token = localStorage.getItem("token")
     useEffect(() => {
         fetchTags()
     }, [])
@@ -23,7 +24,7 @@ function CreatejobComponent() {
     let fetchTags = async () => {
         const response = await fetch("http://127.0.0.1:8000/api/tags/", {
             headers: {
-                Authorization: "Token 7bc67ec97ef1d68fccd48efb84addf7199f33e0d"
+                Authorization: `Token ${token}`
             }
         })
         const data = await response.json()

@@ -1,6 +1,44 @@
-import { BsCalendarPlus } from "react-icons/bs";
+import { useState, useEffect} from "react";
+import { useNavigate } from 'react-router-dom'
 
 function ProfileComponent(){
+    const [userdata,setUserData] = useState([]);
+    let navigate = useNavigate()
+    let token = localStorage.getItem("token")
+    useEffect(() => {
+        fetchUserData()
+    }, [])
+    let fetchUserData = async () => {
+        console.log(token)
+        const response = await fetch(`http://127.0.0.1:8000/api/v1/account/user_details/`, {
+            headers: {
+                Authorization: `Token ${token}`
+            }
+        })
+        const data = await response.json()
+        setUserData(data)
+    }
+
+    let handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            let res = await fetch("http://127.0.0.1:8000/api/v1/account/update/", {
+                method: "PUT",
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Token ${token}`
+                },
+                body: JSON.stringify({
+                    username: userdata.username,
+                    email: userdata.email,
+                }),
+            });
+            let resJson = await res.json();
+            navigate('../profile/', { replace: true })
+        } catch (err) {
+            console.log(err);
+        }
+    };
 
     return(
         <div className="home">
@@ -8,20 +46,13 @@ function ProfileComponent(){
                 <div className="content-profile">
                     <h1>Profile</h1><br/>
                     <form action="#">
+                    <div className="mb-3">
+                        <label for="exampleInputEmail1" className="form-label">Username</label>
+                        <input type="text" value={userdata.username} onChange={(e) => setUserData({username:e.target.value, email:userdata.email})} className="form-control" id="exampleInputEmail1" placeholder="Enter your name" />
+                    </div>
                         <div className="mb-3">
                             <label for="exampleInputEmail1" className="form-label">Email address</label>
-                            <input type="email" className="form-control" id="exampleInputEmail1" placeholder="Enter your email" value="Asmaa@gmail.com" disabled/>
-                        </div>
-                    
-                        <div className="mb-3">
-                            <label for="creationTimeField" className="form-label md-form md-outline input-with-post-icon datepicker">Date of Birth</label><br/>
-                            <div className="mb-3 input-group">
-                                <input type="date" className="form-control py-2 border-right-0 border" id="creationTimeField" value={new Date} disabled/>
-                                <div className="input-group-text bg-transparent bg-white"> 
-                                <BsCalendarPlus/>
-                                </div>
-                                <span className="input-group-append ml-n1"></span>
-                            </div>
+                            <input type="email" value={userdata.email} onChange={(e) => setUserData({username:userdata.userdata, email:e.target.value,})} className="form-control" id="exampleInputEmail1" placeholder="Enter your email" />
                         </div>
                     
                     {/* {showhide === 'developer' &&(
@@ -62,7 +93,7 @@ function ProfileComponent(){
                         )
 
                     } */}
-                             <button className="btn btn-outline-primary m-5 btn-lg">Edit</button>
+                             <button className="btn btn-outline-primary m-5 btn-lg" onClick={handleSubmit}>Edit</button>
                         </form>
                         <div>
                        
