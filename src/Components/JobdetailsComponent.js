@@ -13,14 +13,14 @@ function JobdetailsComponent() {
     }, [])
 
     let fetchJob = async () => {
-        const response = await fetch(`http://127.0.0.1:8000/api/jobs/${id}`, {
+        const response = await fetch(`http://127.0.0.1:8000/api/v1/job/${id}`, {
             headers: {
                 Authorization:`Token ${token}`
             }
         })
         const data = await response.json()
         setJob(data)
-        setTags(data.Tags)
+        setTags(data.tags)
     }
 
     const renderTags = () => {
@@ -31,6 +31,21 @@ function JobdetailsComponent() {
                 </ul>
             )
         })
+    }
+    let handleApply = async () =>{
+        const response = await fetch(`http://127.0.0.1:8000/api/v1/job/${id}/apply`, {
+            headers: {
+                Authorization:`Token ${token}`
+            }
+        })
+        const data = await response.json()
+        console.log(data)
+        if(response.status === 200){
+            alert("Applied Successfully")
+        }else{
+            alert("Denied")
+        }
+
     }
 
     return (
@@ -55,7 +70,7 @@ function JobdetailsComponent() {
                         >
                             Back
                         </NavLink>
-                        <button className="btn btn-outline-success m-5 btn-lg">Apply</button>
+                        <button className="btn btn-outline-success m-5 btn-lg" onClick={handleApply}>Apply</button>
                     </div>
                 </div>
             </div>

@@ -1,6 +1,20 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 let Navbar = () => {
+    let navigate = useNavigate()
+    let handleLogout = async ()=>{
+        
+    let token = localStorage.getItem("token")
+        const response = await fetch("http://127.0.0.1:8000/api/v1/account/logout_user", {
+            headers: {
+                Authorization:`Token ${token}`
+            }
+        })
+        const data = await response.json()
+        localStorage.removeItem('token')
+
+    }
+
     return (
 
         <nav class="navbar navbar-expand-lg bg-light">
@@ -23,7 +37,7 @@ let Navbar = () => {
                             </NavLink>
                         </li>
                         <li class="nav-item" >
-                            <button className="btn btn-light">
+                            <button onClick={handleLogout} className="btn btn-light">
                                 Logout
                             </button>
                         </li>

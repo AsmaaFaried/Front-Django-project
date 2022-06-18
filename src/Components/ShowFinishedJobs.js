@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { NavLink, useNavigate } from 'react-router-dom'
 
-function ShowjobsComponent() {
+function ShowFinishedJobs() {
     let navigate = useNavigate()
     let token = localStorage.getItem("token")
     const [jobsarr, setJobsArr] = useState([]);
@@ -11,7 +11,7 @@ function ShowjobsComponent() {
     }, [])
 
     let fetchJobs = async () => {
-        const response = await fetch("http://127.0.0.1:8000/api/v1/job", {
+        const response = await fetch("http://127.0.0.1:8000/api/v1/account/get_all_finished_jobs", {
             headers: {
                 Authorization: `Token ${token}`
             }
@@ -21,21 +21,7 @@ function ShowjobsComponent() {
         setJobsArr(data.jobs)
 
     }
-    let handleApply = async (id) =>{
-        const response = await fetch(`http://127.0.0.1:8000/api/v1/job/${id}/apply`, {
-            headers: {
-                Authorization:`Token ${token}`
-            }
-        })
-        const data = await response.json()
-        console.log(data)
-        if(response.status === 200){
-            alert("Applied Successfully")
-        }else{
-            alert("Denied")
-        }
-
-    }
+  
     
     let job = jobsarr.map((job, index) => {
         const tags = job.tags
@@ -61,7 +47,7 @@ function ShowjobsComponent() {
                     >
                         Details
                     </NavLink>
-                    <button className="btn btn-outline-success m-2" onClick={()=> { handleApply(job.id) }}>Apply</button>
+                    
                 </div>
             </div>
         )
@@ -81,4 +67,4 @@ function ShowjobsComponent() {
 
 }
 
-export default ShowjobsComponent;
+export default ShowFinishedJobs;

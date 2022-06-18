@@ -1,6 +1,8 @@
 import { useState, useEffect} from "react";
 import { useNavigate } from 'react-router-dom'
 
+import ShowFinishedJobs from './ShowFinishedJobs';
+
 function ProfileComponent(){
     const [userdata,setUserData] = useState([]);
     let navigate = useNavigate()
@@ -10,6 +12,7 @@ function ProfileComponent(){
     }, [])
     let fetchUserData = async () => {
         console.log(token)
+        token = localStorage.getItem("token")
         const response = await fetch(`http://127.0.0.1:8000/api/v1/account/user_details/`, {
             headers: {
                 Authorization: `Token ${token}`
@@ -100,7 +103,14 @@ function ProfileComponent(){
                     </div>
                 </div>
             </div>
-            <div className="snd-profile"></div>
+            <div className="snd-profile d-block">
+                
+            </div>
+            <div className="border border-3 border-dark">
+
+            <h1>Finished Jobs</h1>
+                <ShowFinishedJobs />
+            </div>
 
         </div>
        

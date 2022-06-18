@@ -6,7 +6,7 @@ function LoginComponent(){
     const [password, setPassword] = useState("");
     let navigate = useNavigate()
     if(localStorage.getItem("token")){
-        navigate('../profile/', { replace: true })
+        // navigate('../profile/', { replace: true })
     }
     let handleSubmit = async (e) => {
         e.preventDefault();
